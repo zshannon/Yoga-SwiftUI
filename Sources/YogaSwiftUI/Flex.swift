@@ -174,10 +174,12 @@ struct _Flex: SwiftUI.Layout {
         let maxHeight = subview[MaxHeightLayoutValueKey.self]
         let height = subview[HeightLayoutValueKey.self]
 
+        // Setting flex properties
         YGNodeStyleSetFlexGrow(subnode, Float(flexGrow))
         YGNodeStyleSetFlexShrink(subnode, Float(flexShrink))
         YGNodeStyleSetAlignSelf(subnode, alignSelf)
 
+        // Setting flexBasis
         switch flexBasis.unit {
         case .auto:
             YGNodeStyleSetFlexBasisAuto(subnode)
@@ -190,60 +192,20 @@ struct _Flex: SwiftUI.Layout {
         @unknown default:
             break
         }
-
-        switch width {
-        case .auto:
-            YGNodeStyleSetMinWidth(subnode, Float(ceil(size.width)))
-        case let .percent(value):
-            YGNodeStyleSetWidthPercent(subnode, value)
-        case let .point(value):
-            YGNodeStyleSetWidth(subnode, value)
-        }
-
-        switch height {
-        case .auto:
-            YGNodeStyleSetMinHeight(subnode, Float(ceil(size.height)))
-        case let .percent(value):
-            YGNodeStyleSetHeightPercent(subnode, value)
-        case let .point(value):
-            YGNodeStyleSetHeight(subnode, value)
-        }
-
-        switch minWidth {
-        case .auto:
-            break
-        case let .percent(value):
-            YGNodeStyleSetMinWidthPercent(subnode, value)
-        case let .point(value):
-            YGNodeStyleSetMinWidth(subnode, value)
-        }
-
-        switch maxWidth {
-        case .auto:
-            break
-        case let .percent(value):
-            YGNodeStyleSetMaxWidthPercent(subnode, value)
-        case let .point(value):
-            YGNodeStyleSetMaxWidth(subnode, value)
-        }
-
-        switch minHeight {
-        case .auto:
-            break
-        case let .percent(value):
-            YGNodeStyleSetMinHeightPercent(subnode, value)
-        case let .point(value):
-            YGNodeStyleSetMinHeight(subnode, value)
-        }
         
-        switch maxHeight {
-        case .auto:
-            break
-        case let .percent(value):
-            YGNodeStyleSetMaxHeightPercent(subnode, value)
-        case let .point(value):
-            YGNodeStyleSetMaxHeight(subnode, value)
-        }
+        // Setting dimensions
+        setDimension(subnode: subnode, dimension: width, size: size.width, isWidth: true)
+        setDimension(subnode: subnode, dimension: height, size: size.height, isWidth: false)
+
+        // Setting min/max dimensions
+        setMinMaxDimension(subnode: subnode, value: minWidth, isMin: true, isWidth: true)
+        setMinMaxDimension(subnode: subnode, value: maxWidth, isMin: false, isWidth: true)
+        setMinMaxDimension(subnode: subnode, value: minHeight, isMin: true, isWidth: false)
+        setMinMaxDimension(subnode: subnode, value: maxHeight, isMin: false, isWidth: false)
+
+        // Setting additional properties
+        setAdditionalProperties(subview: subview, subnode: subnode)
+
 
         return subnode
     }
@@ -264,4 +226,115 @@ struct _Flex: SwiftUI.Layout {
             }
         }
     }
+
+private func setDimension(subnode: YGNodeRef, dimension: YogaDimension, size: CGFloat, isWidth: Bool) {
+  switch dimension {
+  case .auto:
+    if isWidth {
+      YGNodeStyleSetMinWidth(subnode, Float(ceil(size)))
+    } else {
+      YGNodeStyleSetMinHeight(subnode, Float(ceil(size)))
+    }
+  case let .percent(value):
+    if isWidth {
+      YGNodeStyleSetWidthPercent(subnode, value)
+    } else {
+      YGNodeStyleSetHeightPercent(subnode, value)
+    }
+  case let .point(value):
+    if isWidth {
+      YGNodeStyleSetWidth(subnode, value)
+    } else {
+      YGNodeStyleSetHeight(subnode, value)
+    }
+  }
+}
+
+private func setMinMaxDimension(
+  subnode: YGNodeRef, value: YogaDimension, isMin: Bool, isWidth: Bool
+) {
+  switch value {
+  case .auto:
+    break
+  case let .percent(pct):
+    if isMin {
+      if isWidth {
+        YGNodeStyleSetMinWidthPercent(subnode, pct)
+      } else {
+        YGNodeStyleSetMinHeightPercent(subnode, pct)
+      }
+    } else {
+      if isWidth {
+        YGNodeStyleSetMaxWidthPercent(subnode, pct)
+      } else {
+        YGNodeStyleSetMaxHeightPercent(subnode, pct)
+      }
+    }
+  case let .point(pt):
+    if isMin {
+      if isWidth {
+        YGNodeStyleSetMinWidth(subnode, pt)
+      } else {
+        YGNodeStyleSetMinHeight(subnode, pt)
+      }
+    } else {
+      if isWidth {
+        YGNodeStyleSetMaxWidth(subnode, pt)
+      } else {
+        YGNodeStyleSetMaxHeight(subnode, pt)
+      }
+    }
+  }
+}
+
+private func setAdditionalProperties(subview: LayoutSubviews.Element, subnode: YGNodeRef) {
+  let position = subview[PositionLayoutValueKey.self]
+  let marginTop = subview[MarginTopLayoutValueKey.self]
+  let marginRight = subview[MarginRightLayoutValueKey.self]
+  let marginBottom = subview[MarginBottomLayoutValueKey.self]
+  let marginLeft = subview[MarginLeftLayoutValueKey.self]
+  let paddingTop = subview[PaddingTopLayoutValueKey.self]
+  let paddingRight = subview[PaddingRightLayoutValueKey.self]
+  let paddingBottom = subview[PaddingBottomLayoutValueKey.self]
+  let paddingLeft = subview[PaddingLeftLayoutValueKey.self]
+  let borderWidth = subview[BorderWidthLayoutValueKey.self]
+
+  YGNodeStyleSetPositionType(subnode, position)
+
+  setEdgeProperty(subnode: subnode, edge: .top, value: marginTop, isPadding: false)
+  setEdgeProperty(subnode: subnode, edge: .right, value: marginRight, isPadding: false)
+  setEdgeProperty(subnode: subnode, edge: .bottom, value: marginBottom, isPadding: false)
+  setEdgeProperty(subnode: subnode, edge: .left, value: marginLeft, isPadding: false)
+
+  setEdgeProperty(subnode: subnode, edge: .top, value: paddingTop, isPadding: true)
+  setEdgeProperty(subnode: subnode, edge: .right, value: paddingRight, isPadding: true)
+  setEdgeProperty(subnode: subnode, edge: .bottom, value: paddingBottom, isPadding: true)
+  setEdgeProperty(subnode: subnode, edge: .left, value: paddingLeft, isPadding: true)
+
+  YGNodeStyleSetBorder(subnode, .all, Float(borderWidth))
+}
+
+private func setEdgeProperty(subnode: YGNodeRef, edge: YGEdge, value: YGValue, isPadding: Bool) {
+  switch value.unit {
+  case .auto:
+    break
+  case .percent:
+    if isPadding {
+      YGNodeStyleSetPaddingPercent(subnode, edge, value.value)
+    } else {
+      YGNodeStyleSetMarginPercent(subnode, edge, value.value)
+    }
+  case .point:
+    if isPadding {
+      YGNodeStyleSetPadding(subnode, edge, value.value)
+    } else {
+      YGNodeStyleSetMargin(subnode, edge, value.value)
+    }
+  case .undefined:
+    break
+  @unknown default:
+    break
+  }
+}
+
 }
