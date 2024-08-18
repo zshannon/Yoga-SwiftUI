@@ -219,8 +219,10 @@ struct _Flex: SwiftUI.Layout {
                 let x = YGNodeLayoutGetLeft(subnode)
                 let width = YGNodeLayoutGetWidth(subnode)
                 let height = YGNodeLayoutGetHeight(subnode)
+                
                 subview.place(at: CGPoint(x: bounds.minX + CGFloat(x),
                                           y: bounds.minY + CGFloat(y)),
+                              
                               proposal: .init(CGSize(width: CGFloat(width),
                                                      height: CGFloat(height))))
             }
