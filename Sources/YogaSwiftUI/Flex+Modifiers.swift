@@ -116,7 +116,7 @@ extension View {
      introspection key ID. Set with ``flexIntrospectionKey()`` view modifier.
      NOTE: Only works if the view is contained by the ``Flex`` layout.
      */
-  func flexIntrospectionKey(_ key: String) -> some View {
+  public func flexIntrospectionKey(_ key: String) -> some View {
     layoutValue(key: FlexLayoutMetricsIntrospectionKey.self, value: key)
   }
 }
