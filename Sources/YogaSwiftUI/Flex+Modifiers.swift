@@ -109,6 +109,16 @@ extension View {
   public func borderWidth(_ value: CGFloat) -> some View {
     return layoutValue(key: BorderWidthLayoutValueKey.self, value: value)
   }
+
+  /**
+     Used to inspect the views layout metics. Useful for debugging and creating UI tests
+     See ``FlexLayoutInspector/getLayoutMetricsFor(flexSubViewID:)`` on how to get a view's metrics based on its
+     introspection key ID. Set with ``flexIntrospectionKey()`` view modifier.
+     NOTE: Only works if the view is contained by the ``Flex`` layout.
+     */
+  func flexIntrospectionKey(_ key: String) -> some View {
+    layoutValue(key: FlexLayoutMetricsIntrospectionKey.self, value: key)
+  }
 }
 
 public struct AlignContentLayoutValueKey: LayoutValueKey {
