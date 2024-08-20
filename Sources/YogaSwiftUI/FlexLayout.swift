@@ -63,24 +63,6 @@ struct FlexLayout: SwiftUI.Layout {
 
         YGNodeCalculateLayout(cache.rootNodeRef, Float.nan, Float.nan, layoutDirection)
 
-        if FlexLayoutInspector.enabled {
-            calculateLayoutMetricsForSubviews(
-                in: CGRect(x: 0, y: 0, width: proposal.width ?? 0, height: proposal.height ?? 0),
-                subviews: subviews,
-                cache: &cache
-            ).forEach {
-                let subview = $0.subview
-                let l = $0.layoutMetrics
-                if let flexIntrospectionKey = subview[FlexLayoutMetricsIntrospectionKey.self] {
-                    FlexLayoutInspector.setLayoutMetricsFor(
-                        flexSubViewID: flexIntrospectionKey,
-                        l
-                    )
-                }
-            }
-        }
-
-
         return CGSize(
             width: CGFloat(YGNodeLayoutGetWidth(root)),
             height: CGFloat(YGNodeLayoutGetHeight(root))
@@ -229,17 +211,25 @@ struct FlexLayout: SwiftUI.Layout {
         subviews: Subviews,
         cache: inout Cache
     ) {
-        for calculateLayoutMetricsForSubview in calculateLayoutMetricsForSubviews(in: bounds, subviews: subviews, cache: &cache) {
-            let l = calculateLayoutMetricsForSubview.layoutMetrics
+        for layoutMetricsResult in calculateLayoutMetricsForSubviews(in: bounds, subviews: subviews, cache: &cache) {
+            let layoutMetrics = layoutMetricsResult.layoutMetrics
+            let subview = layoutMetricsResult.subview
             let point = CGPoint(
-                x: CGFloat(l.x),
-                y: CGFloat(l.y)
+                x: CGFloat(layoutMetrics.x),
+                y: CGFloat(layoutMetrics.y)
             )
             let proposedSize = ProposedViewSize(
-                width: CGFloat(l.width),
-                height: CGFloat(l.height)
+                width: CGFloat(layoutMetrics.width),
+                height: CGFloat(layoutMetrics.height)
             )
-            calculateLayoutMetricsForSubview.subview.place(at: point, proposal: proposedSize)
+            subview.place(at: point, proposal: proposedSize)
+
+            if let flexIntrospectionKey = subview[FlexLayoutMetricsIntrospectionKey.self] {
+                FlexLayoutInspector.setLayoutMetricsFor(
+                    flexSubViewID: flexIntrospectionKey,
+                    layoutMetrics
+                )
+            }
         }
     }
 
@@ -269,39 +259,6 @@ struct FlexLayout: SwiftUI.Layout {
             }
             return nil
         }
-
-//        for (idx, subview) in subviews.enumerated() {
-//          if let subnode = YGNodeGetChild(cache.rootNodeRef, UInt32(idx)) {
-//            let y = YGNodeLayoutGetTop(subnode)
-//            let x = YGNodeLayoutGetLeft(subnode)
-//            let width = YGNodeLayoutGetWidth(subnode)
-//            let height = YGNodeLayoutGetHeight(subnode)
-//
-//            let xWithBounds = bounds.minX + CGFloat(x)
-//            let yWithBounds = bounds.minY + CGFloat(y)
-//
-//            if let flexIntrospectionKey = subview[FlexLayoutMetricsIntrospectionKey.self] {
-//              FlexLayoutInspector.setLayoutMetricsFor(
-//                flexSubViewID: flexIntrospectionKey,
-//                LayoutMetrics(
-//                  x: Float(xWithBounds),
-//                  y: Float(yWithBounds),
-//                  width: width,
-//                  height: height
-//                )
-//              )
-//            }
-//
-//            subview.place(
-//              at: CGPoint(
-//                x: xWithBounds,
-//                y: yWithBounds),
-//              proposal: .init(
-//                CGSize(
-//                  width: CGFloat(width),
-//                  height: CGFloat(height))))
-//          }
-//        }
     }
 }
 
