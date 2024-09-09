@@ -248,7 +248,7 @@ public struct FlexLayoutMetricsIntrospectionKey: LayoutValueKey {
   public static var defaultValue: String?
 }
 
-public enum YogaDimension {
+public enum YogaDimension: Equatable {
   case auto
   case percent(Float)  // 0...1
   case point(Float)
