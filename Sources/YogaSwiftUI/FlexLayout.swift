@@ -131,6 +131,9 @@ struct FlexLayout: SwiftUI.Layout {
         let minHeight = subview[MinHeightLayoutValueKey.self]
         let maxHeight = subview[MaxHeightLayoutValueKey.self]
         let height = subview[HeightLayoutValueKey.self]
+        
+        // Debugging and testing:
+        setLayoutValuesForSubview(subview)
 
         YGNodeStyleSetFlexGrow(subnode, Float(flexGrow))
         YGNodeStyleSetFlexShrink(subnode, Float(flexShrink))
@@ -265,4 +268,38 @@ struct FlexLayout: SwiftUI.Layout {
 private struct LayoutMetricsResult {
     let subview: LayoutSubview
     let layoutMetrics: LayoutMetrics
+}
+
+private func setLayoutValuesForSubview(_ subview: LayoutSubviews.Element) {
+    // Get the FlexLayoutMetricsIntrospectionKey value from the subview
+    let introspectionKey = subview[FlexLayoutMetricsIntrospectionKey.self]
+
+    // If the introspection key is not set, return early
+    guard let flexSubViewID = introspectionKey else { return }
+
+    // Explicitly set the value for each LayoutValueKey type
+    FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[AlignContentLayoutValueKey.self], for: AlignContentLayoutValueKey.self)
+    FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[AlignItemLayoutValueKey.self], for: AlignItemLayoutValueKey.self)
+    FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[AlignSelfLayoutValueKey.self], for: AlignSelfLayoutValueKey.self)
+    FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[FlexDirectionLayoutValueKey.self], for: FlexDirectionLayoutValueKey.self)
+    FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[FlexWrapLayoutValueKey.self], for: FlexWrapLayoutValueKey.self)
+    FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[FlexBasisLayoutValueKey.self], for: FlexBasisLayoutValueKey.self)
+    FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[FlexGrowLayoutValueKey.self], for: FlexGrowLayoutValueKey.self)
+    FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[FlexShrinkLayoutValueKey.self], for: FlexShrinkLayoutValueKey.self)
+    FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[WidthLayoutValueKey.self], for: WidthLayoutValueKey.self)
+    FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[MaxWidthLayoutValueKey.self], for: MaxWidthLayoutValueKey.self)
+    FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[MinWidthLayoutValueKey.self], for: MinWidthLayoutValueKey.self)
+    FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[HeightLayoutValueKey.self], for: HeightLayoutValueKey.self)
+    FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[MaxHeightLayoutValueKey.self], for: MaxHeightLayoutValueKey.self)
+    FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[MinHeightLayoutValueKey.self], for: MinHeightLayoutValueKey.self)
+    FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[PositionLayoutValueKey.self], for: PositionLayoutValueKey.self)
+    FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[MarginTopLayoutValueKey.self], for: MarginTopLayoutValueKey.self)
+    FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[MarginRightLayoutValueKey.self], for: MarginRightLayoutValueKey.self)
+    FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[MarginBottomLayoutValueKey.self], for: MarginBottomLayoutValueKey.self)
+    FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[MarginLeftLayoutValueKey.self], for: MarginLeftLayoutValueKey.self)
+    FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[PaddingTopLayoutValueKey.self], for: PaddingTopLayoutValueKey.self)
+    FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[PaddingRightLayoutValueKey.self], for: PaddingRightLayoutValueKey.self)
+    FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[PaddingBottomLayoutValueKey.self], for: PaddingBottomLayoutValueKey.self)
+    FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[PaddingLeftLayoutValueKey.self], for: PaddingLeftLayoutValueKey.self)
+    FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[BorderWidthLayoutValueKey.self], for: BorderWidthLayoutValueKey.self)
 }
