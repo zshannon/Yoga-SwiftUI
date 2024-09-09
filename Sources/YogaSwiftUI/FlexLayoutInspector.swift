@@ -17,14 +17,15 @@ public class FlexLayoutInspector {
     }
 
     static func setLayoutValueCollectionFor<Key: LayoutValueKey>(flexSubViewID: String, _ value: Key.Value, for key: Key.Type) {
-        if var collection = layoutValueCollection[flexSubViewID] {
-            // TODO: Does this set the collection for the internal method?
-            collection.set(value, for: key)
-        } else {
-            var collection = LayoutValueCollection()
-            collection.set(value, for: key)
-            layoutValueCollection[flexSubViewID] = collection
-        }
+//        if var collection = layoutValueCollection[flexSubViewID] {
+//            // TODO: Does this set the collection for the internal method?
+//            collection.set(value, for: key)
+//        } else {
+//            var collection = LayoutValueCollection()
+//            collection.set(value, for: key)
+//            layoutValueCollection[flexSubViewID] = collection
+//        }
+        layoutValueCollection[flexSubViewID, default: LayoutValueCollection()].set(value, for: key)
     }
 }
 
