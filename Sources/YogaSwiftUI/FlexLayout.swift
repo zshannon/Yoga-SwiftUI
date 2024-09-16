@@ -131,7 +131,7 @@ struct FlexLayout: SwiftUI.Layout {
         let minHeight = subview[MinHeightLayoutValueKey.self]
         let maxHeight = subview[MaxHeightLayoutValueKey.self]
         let height = subview[HeightLayoutValueKey.self]
-        
+
         // Debugging and testing:
         setLayoutValuesForSubview(subview)
 
@@ -302,7 +302,7 @@ private func setLayoutValuesForSubview(_ subview: LayoutSubviews.Element) {
     FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[PaddingBottomLayoutValueKey.self], for: PaddingBottomLayoutValueKey.self)
     FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[PaddingLeftLayoutValueKey.self], for: PaddingLeftLayoutValueKey.self)
     FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[BorderWidthLayoutValueKey.self], for: BorderWidthLayoutValueKey.self)
-    
+
     // Positioning
     FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[PositionTopLayoutValueKey.self], for: PositionTopLayoutValueKey.self)
     FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[PositionRightLayoutValueKey.self], for: PositionRightLayoutValueKey.self)
@@ -310,14 +310,13 @@ private func setLayoutValuesForSubview(_ subview: LayoutSubviews.Element) {
     FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[PositionLeftLayoutValueKey.self], for: PositionLeftLayoutValueKey.self)
     FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[PositionStartLayoutValueKey.self], for: PositionStartLayoutValueKey.self)
     FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[PositionEndLayoutValueKey.self], for: PositionEndLayoutValueKey.self)
-    
+
     // Display
     FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[DisplayLayoutValueKey.self], for: DisplayLayoutValueKey.self)
-    
+
     // Start/End stuff
     FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[PaddingStartLayoutValueKey.self], for: PaddingStartLayoutValueKey.self)
     FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[PaddingEndLayoutValueKey.self], for: PaddingEndLayoutValueKey.self)
     FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[MarginStartLayoutValueKey.self], for: MarginStartLayoutValueKey.self)
     FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[MarginEndLayoutValueKey.self], for: MarginEndLayoutValueKey.self)
-    
 }
