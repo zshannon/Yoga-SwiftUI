@@ -236,6 +236,26 @@ public struct PaddingLeftLayoutValueKey: LayoutValueKey {
   public static var defaultValue: YGValue = .init(value: 0, unit: .point)
 }
 
+public struct PositionTopLayoutValueKey: LayoutValueKey {
+  public typealias Value = YGValue
+  public static var defaultValue: YGValue = .init(value: 0, unit: .point)
+}
+
+public struct PositionRightLayoutValueKey: LayoutValueKey {
+  public typealias Value = YGValue
+  public static var defaultValue: YGValue = .init(value: 0, unit: .point)
+}
+
+public struct PositionBottomLayoutValueKey: LayoutValueKey {
+  public typealias Value = YGValue
+  public static var defaultValue: YGValue = .init(value: 0, unit: .point)
+}
+
+public struct PositionLeftLayoutValueKey: LayoutValueKey {
+  public typealias Value = YGValue
+  public static var defaultValue: YGValue = .init(value: 0, unit: .point)
+}
+
 public struct BorderWidthLayoutValueKey: LayoutValueKey {
   public typealias Value = CGFloat
   public static var defaultValue: CGFloat = 0

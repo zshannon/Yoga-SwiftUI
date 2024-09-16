@@ -302,4 +302,10 @@ private func setLayoutValuesForSubview(_ subview: LayoutSubviews.Element) {
     FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[PaddingBottomLayoutValueKey.self], for: PaddingBottomLayoutValueKey.self)
     FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[PaddingLeftLayoutValueKey.self], for: PaddingLeftLayoutValueKey.self)
     FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[BorderWidthLayoutValueKey.self], for: BorderWidthLayoutValueKey.self)
+    
+    // Positioning
+    FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[PositionTopLayoutValueKey.self], for: PositionTopLayoutValueKey.self)
+    FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[PositionRightLayoutValueKey.self], for: PositionRightLayoutValueKey.self)
+    FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[PositionBottomLayoutValueKey.self], for: PositionBottomLayoutValueKey.self)
+    FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[PositionLeftLayoutValueKey.self], for: PositionLeftLayoutValueKey.self)
 }
