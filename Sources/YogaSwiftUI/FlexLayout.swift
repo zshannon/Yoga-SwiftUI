@@ -308,4 +308,16 @@ private func setLayoutValuesForSubview(_ subview: LayoutSubviews.Element) {
     FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[PositionRightLayoutValueKey.self], for: PositionRightLayoutValueKey.self)
     FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[PositionBottomLayoutValueKey.self], for: PositionBottomLayoutValueKey.self)
     FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[PositionLeftLayoutValueKey.self], for: PositionLeftLayoutValueKey.self)
+    FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[PositionStartLayoutValueKey.self], for: PositionStartLayoutValueKey.self)
+    FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[PositionEndLayoutValueKey.self], for: PositionEndLayoutValueKey.self)
+    
+    // Display
+    FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[DisplayLayoutValueKey.self], for: DisplayLayoutValueKey.self)
+    
+    // Start/End stuff
+    FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[PaddingStartLayoutValueKey.self], for: PaddingStartLayoutValueKey.self)
+    FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[PaddingEndLayoutValueKey.self], for: PaddingEndLayoutValueKey.self)
+    FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[MarginStartLayoutValueKey.self], for: MarginStartLayoutValueKey.self)
+    FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[MarginEndLayoutValueKey.self], for: MarginEndLayoutValueKey.self)
+    
 }

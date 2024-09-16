@@ -73,6 +73,25 @@ extension View {
   public func position(_ value: YGPositionType) -> some View {
     return layoutValue(key: PositionLayoutValueKey.self, value: value)
   }
+    
+    public func positionTop(_ value: YGValue) -> some View {
+      return layoutValue(key: PositionTopLayoutValueKey.self, value: value)
+    }
+    public func positionLeft(_ value: YGValue) -> some View {
+      return layoutValue(key: PositionLeftLayoutValueKey.self, value: value)
+    }
+    public func positionRight(_ value: YGValue) -> some View {
+      return layoutValue(key: PositionRightLayoutValueKey.self, value: value)
+    }
+    public func positionBottom(_ value: YGValue) -> some View {
+      return layoutValue(key: PositionBottomLayoutValueKey.self, value: value)
+    }
+    public func positionEnd(_ value: YGValue) -> some View {
+      return layoutValue(key: PositionEndLayoutValueKey.self, value: value)
+    }
+    public func positionStart(_ value: YGValue) -> some View {
+      return layoutValue(key: PositionStartLayoutValueKey.self, value: value)
+    }
 
   public func marginTop(_ value: YGValue) -> some View {
     return layoutValue(key: MarginTopLayoutValueKey.self, value: value)
@@ -86,10 +105,18 @@ extension View {
     return layoutValue(key: MarginBottomLayoutValueKey.self, value: value)
   }
 
-  public func marginLeft(_ value: YGValue) -> some View {
-    return layoutValue(key: MarginLeftLayoutValueKey.self, value: value)
-  }
+    public func marginLeft(_ value: YGValue) -> some View {
+        return layoutValue(key: MarginLeftLayoutValueKey.self, value: value)
+    }
+    
+    public func marginStart(_ value: YGValue) -> some View {
+      return layoutValue(key: MarginStartLayoutValueKey.self, value: value)
+    }
 
+    
+    public func marginEnd(_ value: YGValue) -> some View {
+      return layoutValue(key: MarginEndLayoutValueKey.self, value: value)
+    }
   public func paddingTop(_ value: YGValue) -> some View {
     return layoutValue(key: PaddingTopLayoutValueKey.self, value: value)
   }
@@ -105,11 +132,23 @@ extension View {
   public func paddingLeft(_ value: YGValue) -> some View {
     return layoutValue(key: PaddingLeftLayoutValueKey.self, value: value)
   }
+    
+    public func paddingStart(_ value: YGValue) -> some View {
+      return layoutValue(key: PaddingStartLayoutValueKey.self, value: value)
+    }
+    
+    public func paddingEnd(_ value: YGValue) -> some View {
+      return layoutValue(key: PaddingEndLayoutValueKey.self, value: value)
+    }
 
   public func borderWidth(_ value: CGFloat) -> some View {
     return layoutValue(key: BorderWidthLayoutValueKey.self, value: value)
   }
 
+    
+    public func display(_ value: YGDisplay) -> some View {
+      return layoutValue(key: DisplayLayoutValueKey.self, value: value)
+    }
   /**
      Used to inspect the views layout metics. Useful for debugging and creating UI tests
      See ``FlexLayoutInspector/getLayoutMetricsFor(flexSubViewID:)`` on how to get a view's metrics based on its
@@ -216,6 +255,16 @@ public struct MarginLeftLayoutValueKey: LayoutValueKey {
   public static var defaultValue: YGValue = .init(value: 0, unit: .point)
 }
 
+public struct MarginStartLayoutValueKey: LayoutValueKey {
+  public typealias Value = YGValue
+  public static var defaultValue: YGValue = .init(value: 0, unit: .point)
+}
+
+public struct MarginEndLayoutValueKey: LayoutValueKey {
+  public typealias Value = YGValue
+  public static var defaultValue: YGValue = .init(value: 0, unit: .point)
+}
+
 public struct PaddingTopLayoutValueKey: LayoutValueKey {
   public typealias Value = YGValue
   public static var defaultValue: YGValue = .init(value: 0, unit: .point)
@@ -232,6 +281,16 @@ public struct PaddingBottomLayoutValueKey: LayoutValueKey {
 }
 
 public struct PaddingLeftLayoutValueKey: LayoutValueKey {
+  public typealias Value = YGValue
+  public static var defaultValue: YGValue = .init(value: 0, unit: .point)
+}
+
+public struct PaddingStartLayoutValueKey: LayoutValueKey {
+  public typealias Value = YGValue
+  public static var defaultValue: YGValue = .init(value: 0, unit: .point)
+}
+
+public struct PaddingEndLayoutValueKey: LayoutValueKey {
   public typealias Value = YGValue
   public static var defaultValue: YGValue = .init(value: 0, unit: .point)
 }
@@ -256,9 +315,24 @@ public struct PositionLeftLayoutValueKey: LayoutValueKey {
   public static var defaultValue: YGValue = .init(value: 0, unit: .point)
 }
 
+public struct PositionStartLayoutValueKey: LayoutValueKey {
+  public typealias Value = YGValue
+  public static var defaultValue: YGValue = .init(value: 0, unit: .point)
+}
+
+public struct PositionEndLayoutValueKey: LayoutValueKey {
+  public typealias Value = YGValue
+  public static var defaultValue: YGValue = .init(value: 0, unit: .point)
+}
+
 public struct BorderWidthLayoutValueKey: LayoutValueKey {
   public typealias Value = CGFloat
   public static var defaultValue: CGFloat = 0
+}
+
+public struct DisplayLayoutValueKey: LayoutValueKey {
+  public typealias Value = YGDisplay
+  public static var defaultValue: YGDisplay = .flex
 }
 
 /// Used to inspect the views layout metics.
