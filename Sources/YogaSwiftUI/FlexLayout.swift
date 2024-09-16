@@ -319,4 +319,7 @@ private func setLayoutValuesForSubview(_ subview: LayoutSubviews.Element) {
     FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[PaddingEndLayoutValueKey.self], for: PaddingEndLayoutValueKey.self)
     FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[MarginStartLayoutValueKey.self], for: MarginStartLayoutValueKey.self)
     FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[MarginEndLayoutValueKey.self], for: MarginEndLayoutValueKey.self)
+    
+    // Aspect Ratio
+    FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[AspectRatioLayoutValueKey.self], for: AspectRatioLayoutValueKey.self)
 }
