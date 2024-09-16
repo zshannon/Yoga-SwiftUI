@@ -134,7 +134,7 @@ struct FlexLayout: SwiftUI.Layout {
 
         // Debugging and testing:
         setLayoutValuesForSubview(subview)
-
+        
         YGNodeStyleSetFlexGrow(subnode, Float(flexGrow))
         YGNodeStyleSetFlexShrink(subnode, Float(flexShrink))
         YGNodeStyleSetAlignSelf(subnode, alignSelf)

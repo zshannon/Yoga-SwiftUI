@@ -153,6 +153,10 @@ public extension View {
     func display(_ value: YGDisplay) -> some View {
         return layoutValue(key: DisplayLayoutValueKey.self, value: value)
     }
+    
+    func aspectRatio(_ value: Float?) -> some View {
+        return layoutValue(key: AspectRatioLayoutValueKey.self, value: value)
+    }
 
     /**
      Used to inspect the views layout metics. Useful for debugging and creating UI tests
@@ -338,6 +342,11 @@ public struct BorderWidthLayoutValueKey: LayoutValueKey {
 public struct DisplayLayoutValueKey: LayoutValueKey {
     public typealias Value = YGDisplay
     public static var defaultValue: YGDisplay = .flex
+}
+
+public struct AspectRatioLayoutValueKey: LayoutValueKey {
+    public typealias Value = Float?
+    public static var defaultValue: Float? = nil
 }
 
 /// Used to inspect the views layout metics.
