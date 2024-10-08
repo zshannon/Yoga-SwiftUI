@@ -132,12 +132,62 @@ struct FlexLayout: SwiftUI.Layout {
         let maxHeight = subview[MaxHeightLayoutValueKey.self]
         let height = subview[HeightLayoutValueKey.self]
 
+        // TODO: Add Margin and Positioning, should be a matter of extracting out the parapm
+        let position = subview[PositionLayoutValueKey.self]
+        let positionTop = subview[PositionTopLayoutValueKey.self]
+        let positionBottom = subview[PositionBottomLayoutValueKey.self]
+        let positionLeft = subview[PositionLeftLayoutValueKey.self]
+        let positionRight = subview[PositionRightLayoutValueKey.self]
+
+        // ! Margins:
+        let marginTop = subview[MarginTopLayoutValueKey.self]
+        let marginBottom = subview[MarginBottomLayoutValueKey]
+        let marginLeft = subview[MarginLeftLayoutValueKey]
+        let marginRight = subview[MarginRightLayoutValueKey]
+
+
         // Debugging and testing:
         setLayoutValuesForSubview(subview)
-        
+
         YGNodeStyleSetFlexGrow(subnode, Float(flexGrow))
         YGNodeStyleSetFlexShrink(subnode, Float(flexShrink))
         YGNodeStyleSetAlignSelf(subnode, alignSelf)
+
+        if position == .absolute {
+            YGNodeStyleSetPositionType(subnode, .absolute)
+            switch positionTop.unit {
+            case .percent:
+                YGNodeStyleSetPosition(subnode, .top, positionTop.value)
+            case .point:
+                YGNodeStyleSetPosition(subnode, .top, positionTop.value)
+            default:
+                break
+            }
+            switch positionBottom.unit {
+            case .percent:
+                YGNodeStyleSetPosition(subnode, .bottom, positionTop.value)
+            case .point:
+                YGNodeStyleSetPosition(subnode, .bottom, positionTop.value)
+            default:
+                break
+            }
+            switch positionRight.unit {
+            case .percent:
+                YGNodeStyleSetPosition(subnode, .right, positionTop.value)
+            case .point:
+                YGNodeStyleSetPosition(subnode, .right, positionTop.value)
+            default:
+                break
+            }
+            switch positionLeft.unit {
+            case .percent:
+                YGNodeStyleSetPosition(subnode, .left, positionTop.value)
+            case .point:
+                YGNodeStyleSetPosition(subnode, .left, positionTop.value)
+            default:
+                break
+            }
+        }
 
         switch flexBasis.unit {
         case .auto:
@@ -204,6 +254,50 @@ struct FlexLayout: SwiftUI.Layout {
             YGNodeStyleSetMaxHeightPercent(subnode, value)
         case let .point(value):
             YGNodeStyleSetMaxHeight(subnode, value)
+        }
+
+        switch marginBottom.unit {
+            case .auto:
+                YGNodeStyleSetMarginAuto(subnode, .bottom)
+            case .point:
+                YGNodeStyleSetMargin(subnode, .bottom, marginBottom.value)
+            case .percent:
+                YGNodeStyleSetMarginPercent(subnode, .bottom, marginBottom.value)
+            default:
+                break
+        }
+
+        switch marginTop.unit {
+            case .auto:
+                YGNodeStyleSetMarginAuto(subnode, .top)
+            case .point:
+                YGNodeStyleSetMargin(subnode, .top, marginTop.value)
+            case .percent:
+                YGNodeStyleSetMarginPercent(subnode, .top, marginTop.value)
+            default:
+                break
+        }
+
+        switch marginLeft.unit {
+            case .auto:
+                YGNodeStyleSetMarginAuto(subnode, .left)
+            case .point:
+                YGNodeStyleSetMargin(subnode, .left, marginLeft.value)
+            case .percent:
+                YGNodeStyleSetMarginPercent(subnode, .left, marginLeft.value)
+            default:
+                break
+        }
+
+        switch marginRight.unit {
+            case .auto:
+                YGNodeStyleSetMarginAuto(subnode, .right)
+            case .point:
+                YGNodeStyleSetMargin(subnode, .right, marginRight.value)
+            case .percent:
+                YGNodeStyleSetMarginPercent(subnode, .right, marginRight.value)
+            default:
+                break
         }
 
         return subnode
@@ -319,7 +413,7 @@ private func setLayoutValuesForSubview(_ subview: LayoutSubviews.Element) {
     FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[PaddingEndLayoutValueKey.self], for: PaddingEndLayoutValueKey.self)
     FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[MarginStartLayoutValueKey.self], for: MarginStartLayoutValueKey.self)
     FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[MarginEndLayoutValueKey.self], for: MarginEndLayoutValueKey.self)
-    
+
     // Aspect Ratio
     FlexLayoutInspector.setLayoutValueCollectionFor(flexSubViewID: flexSubViewID, subview[AspectRatioLayoutValueKey.self], for: AspectRatioLayoutValueKey.self)
 }
