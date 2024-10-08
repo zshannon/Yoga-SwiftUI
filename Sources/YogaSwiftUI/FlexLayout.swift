@@ -141,9 +141,13 @@ struct FlexLayout: SwiftUI.Layout {
 
         // ! Margins:
         let marginTop = subview[MarginTopLayoutValueKey.self]
-        let marginBottom = subview[MarginBottomLayoutValueKey]
-        let marginLeft = subview[MarginLeftLayoutValueKey]
-        let marginRight = subview[MarginRightLayoutValueKey]
+        let marginBottom = subview[MarginBottomLayoutValueKey.self]
+        let marginLeft = subview[MarginLeftLayoutValueKey.self]
+        let marginRight = subview[MarginRightLayoutValueKey.self]
+
+        // Display
+
+        let display  = subview[DisplayLayoutValueKey.self]
 
 
         // Debugging and testing:
@@ -298,6 +302,10 @@ struct FlexLayout: SwiftUI.Layout {
                 YGNodeStyleSetMarginPercent(subnode, .right, marginRight.value)
             default:
                 break
+        }
+
+        if display == .none {
+            YGNodeStyleSetDisplay(subnode, .none)
         }
 
         return subnode
