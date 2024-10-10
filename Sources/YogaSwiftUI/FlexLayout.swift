@@ -114,7 +114,7 @@ struct FlexLayout: SwiftUI.Layout {
     private func setupNodes(subviews: Subviews, root: YGNodeRef) {
         for (idx, subview) in subviews.enumerated() {
             let subnode = createSubnode(forSubview: subview)
-            YGNodeInsertChild(root, subnode, UInt32(idx))
+            YGNodeInsertChild(root, subnode, idx)
         }
     }
 
@@ -344,7 +344,7 @@ struct FlexLayout: SwiftUI.Layout {
         cache: inout Cache
     ) -> [LayoutMetricsResult] {
         return subviews.enumerated().compactMap { idx, subview in
-            if let subnode = YGNodeGetChild(cache.rootNodeRef, UInt32(idx)) {
+            if let subnode = YGNodeGetChild(cache.rootNodeRef, idx) {
                 let y = YGNodeLayoutGetTop(subnode)
                 let x = YGNodeLayoutGetLeft(subnode)
                 let width = YGNodeLayoutGetWidth(subnode)
