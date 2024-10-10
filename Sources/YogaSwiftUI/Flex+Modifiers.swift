@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import Yoga
+import yoga
 
 public struct JustifyContentLayoutValueKey: LayoutValueKey {
     public typealias Value = YGJustify

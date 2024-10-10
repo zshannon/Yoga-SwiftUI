@@ -6,14 +6,14 @@
 //
 
 import SwiftUI
-import Yoga
+import yoga
 
 public struct Flex<V: View>: View {
   @Environment(\.layoutDirection)
   var layoutDirection
-
+    
   public var direction: YGFlexDirection = .row
-  public var justifyContent: YGJustify = .flexStart
+    public var justifyContent: YGJustify = .flexStart 
   public var alignItems: YGAlign = .flexStart
   public var alignContent: YGAlign = .flexStart
   public var wrap: YGWrap = .noWrap

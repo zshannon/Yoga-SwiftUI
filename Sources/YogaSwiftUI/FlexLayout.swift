@@ -1,5 +1,5 @@
 import SwiftUI
-import Yoga
+import yoga
 
 struct FlexLayout: SwiftUI.Layout {
     public var direction: YGFlexDirection = .row
