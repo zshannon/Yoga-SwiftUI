@@ -13,13 +13,13 @@ let package = Package(
             targets: ["YogaSwiftUI"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/tiepvuvan/yoga", branch: "main")
+        .package(url: "https://github.com/facebook/yoga.git", from: "3.1.0")
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "YogaSwiftUI",
-            dependencies: [.product(name: "Yoga", package: "yoga")])
+            dependencies: [.product(name: "yoga", package: "yoga")])
     ]
 )
