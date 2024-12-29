@@ -169,25 +169,25 @@ struct FlexLayout: SwiftUI.Layout {
             }
             switch positionBottom.unit {
             case .percent:
-                YGNodeStyleSetPosition(subnode, .bottom, positionTop.value)
+                YGNodeStyleSetPosition(subnode, .bottom, positionBottom.value)
             case .point:
-                YGNodeStyleSetPosition(subnode, .bottom, positionTop.value)
+                YGNodeStyleSetPosition(subnode, .bottom, positionBottom.value)
             default:
                 break
             }
             switch positionRight.unit {
             case .percent:
-                YGNodeStyleSetPosition(subnode, .right, positionTop.value)
+                YGNodeStyleSetPosition(subnode, .right, positionRight.value)
             case .point:
-                YGNodeStyleSetPosition(subnode, .right, positionTop.value)
+                YGNodeStyleSetPosition(subnode, .right, positionRight.value)
             default:
                 break
             }
             switch positionLeft.unit {
             case .percent:
-                YGNodeStyleSetPosition(subnode, .left, positionTop.value)
+                YGNodeStyleSetPosition(subnode, .left, positionLeft.value)
             case .point:
-                YGNodeStyleSetPosition(subnode, .left, positionTop.value)
+                YGNodeStyleSetPosition(subnode, .left, positionLeft.value)
             default:
                 break
             }
