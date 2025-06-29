@@ -59,7 +59,7 @@ struct FlexLayout: SwiftUI.Layout {
         let root = cache.rootNodeRef
         freeRootNodeChildren(cache: &cache)
         setRootDimensions(root: root, proposal: proposal)
-        setupNodes(subviews: subviews, root: root)
+        setupNodes(subviews: subviews, root: root, proposal: proposal)
 
         YGNodeCalculateLayout(cache.rootNodeRef, Float.nan, Float.nan, layoutDirection)
 
@@ -111,16 +111,16 @@ struct FlexLayout: SwiftUI.Layout {
         }
     }
 
-    private func setupNodes(subviews: Subviews, root: YGNodeRef) {
+    private func setupNodes(subviews: Subviews, root: YGNodeRef, proposal: ProposedViewSize) {
         for (idx, subview) in subviews.enumerated() {
-            let subnode = createSubnode(forSubview: subview)
+            let subnode = createSubnode(forSubview: subview, proposal: proposal)
             YGNodeInsertChild(root, subnode, idx)
         }
     }
 
-    private func createSubnode(forSubview subview: LayoutSubviews.Element) -> YGNodeRef {
+    private func createSubnode(forSubview subview: LayoutSubviews.Element, proposal: ProposedViewSize) -> YGNodeRef {
         let subnode = YGNodeNew()!
-        let size = subview.sizeThatFits(.unspecified)
+        let size = subview.sizeThatFits(proposal)
         let flexGrow = subview[FlexGrowLayoutValueKey.self]
         let flexShrink = subview[FlexShrinkLayoutValueKey.self]
         let alignSelf = subview[AlignSelfLayoutValueKey.self]
@@ -217,8 +217,7 @@ struct FlexLayout: SwiftUI.Layout {
 
         switch height {
         case .auto:
-            // YGNodeStyleSetMinHeight(subnode, Float(ceil(size.height)))
-            break
+            YGNodeStyleSetMinHeight(subnode, Float(ceil(size.height)))
         case let .percent(value):
             YGNodeStyleSetHeightPercent(subnode, value)
         case let .point(value):
