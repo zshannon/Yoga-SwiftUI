@@ -217,7 +217,8 @@ struct FlexLayout: SwiftUI.Layout {
 
         switch height {
         case .auto:
-            YGNodeStyleSetMinHeight(subnode, Float(ceil(size.height)))
+            // YGNodeStyleSetMinHeight(subnode, Float(ceil(size.height)))
+            break
         case let .percent(value):
             YGNodeStyleSetHeightPercent(subnode, value)
         case let .point(value):
